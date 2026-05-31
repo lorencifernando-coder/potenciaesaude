@@ -91,6 +91,10 @@ const FAQ = [
     a: "Sim. Toda informação é tratada com sigilo médico absoluto e proteção LGPD. Seu nome jamais aparece em listas ou comunicações comerciais.",
   },
   {
+    q: "A consulta de retorno realmente está inclusa?",
+    a: "Sim. Direito a consulta de retorno com prontuário organizado e acompanhamento da progressão entre os tratamentos. Cada caso desafiador é levado a sério, do início ao fim.",
+  },
+  {
     q: "Quanto tempo leva para ver resultado?",
     a: "Depende da causa identificada. A maioria dos pacientes percebe melhora em 4 a 8 semanas após iniciar o tratamento correto.",
   },
