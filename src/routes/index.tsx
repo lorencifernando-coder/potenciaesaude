@@ -232,7 +232,7 @@ function Landing() {
             </blockquote>
 
             <p className="text-muted-foreground leading-relaxed">
-              Decidi seguir um caminho diferente da medicina padronizada e fria. Meu foco é oferecer um espaço seguro, sem julgamentos, onde você seja compreendido por completo. A disfunção erétil tem tratamento, e ele começa com uma relação de confiança entre médico e paciente.
+              Decidi seguir um caminho diferente da medicina padronizada e fria. Aqui fazemos ciência — de forma atualizada, atenta e buscando restaurar a sua saúde como um todo. Sem promessas vagas, medicamentos milagrosos ou vendas casadas. A ereção e o desejo são os termômetros da saúde masculina: quando estão em ordem, o resto do corpo também tende a estar.
             </p>
 
             {videoEmbed && (
