@@ -18,7 +18,7 @@ export const Route = createFileRoute("/blog/$slug")({
     if (!post) return { meta: [{ title: "Artigo não encontrado" }] };
     return {
       meta: [
-        { title: `${post.title} — Blog Dr. Luiz Fernando Lorenci` },
+        { title: post.title },
         { name: "description", content: post.excerpt },
         { property: "og:title", content: post.title },
         { property: "og:description", content: post.excerpt },
