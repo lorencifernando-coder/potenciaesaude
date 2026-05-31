@@ -5,6 +5,7 @@ import { getAvailableSlots, confirmarAgendamento } from "@/lib/agendamento.funct
 import { createPaymentPreference } from "@/lib/payment.functions";
 import { Loader2, Calendar, Lock, Sunrise, Sun, Moon, ArrowRight } from "lucide-react";
 import { useState } from "react";
+import { useSiteSettings } from "@/hooks/use-site-settings";
 
 export const Route = createFileRoute("/agendamento/$inscricaoId")({
   head: () => ({ meta: [{ title: "Escolha o horário da sua avaliação" }, { name: "robots", content: "noindex" }] }),
