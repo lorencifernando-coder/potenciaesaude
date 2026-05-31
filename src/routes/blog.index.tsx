@@ -24,10 +24,12 @@ function formatDate(iso: string) {
 
 function BlogIndex() {
   const [featured, ...rest] = BLOG_POSTS;
+  const [quizOpen, setQuizOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <SiteHeader />
+      <Quiz open={quizOpen} onClose={() => setQuizOpen(false)} />
+      <SiteHeader onCtaClick={() => setQuizOpen(true)} />
 
       {/* Header */}
       <section className="border-b border-border">
