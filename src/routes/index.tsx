@@ -240,28 +240,42 @@ function Landing() {
         <footer className="border-t border-border bg-background">
           <div className="mx-auto max-w-5xl px-5 py-12 grid sm:grid-cols-2 gap-8">
             <div>
-              <div className="font-serif text-xl text-gold-l mb-2">Dr. Luiz Fernando Lorenci</div>
-              <div className="text-sm text-muted-foreground">CRM-SC 41096 • Saúde Masculina</div>
+              <div className="font-serif text-xl text-gold-l mb-2">{medico}</div>
+              <div className="text-sm text-muted-foreground">{crm} • {especialidade}</div>
               <div className="text-xs text-muted-foreground mt-3 max-w-sm">
-                Atendimento sigiloso e humanizado. Telemedicina e presencial.
+                {site?.footer_texto || site?.footer_aviso_legal || "Atendimento sigiloso e humanizado."}
               </div>
+              {enderecoCidade && <div className="text-xs text-muted-foreground mt-2">{enderecoCidade}</div>}
             </div>
             <div className="space-y-2 text-sm">
-              <a href="https://wa.me/5549999318583" className="flex items-center gap-2 text-muted-foreground hover:text-gold-l transition-colors">
-                <MessageCircle size={14} /><span>WhatsApp (49) 99931-8583</span>
-              </a>
-              <a href="tel:+5549999318583" className="flex items-center gap-2 text-muted-foreground hover:text-gold-l transition-colors">
-                <Phone size={14} /><span>(49) 99931-8583</span>
-              </a>
-              <a href="mailto:adm@lflcuidadoesaude.com.br" className="flex items-center gap-2 text-muted-foreground hover:text-gold-l transition-colors">
-                <Mail size={14} /><span>adm@lflcuidadoesaude.com.br</span>
-              </a>
+              {whatsapp && (
+                <a href={`https://wa.me/${whatsapp}`} className="flex items-center gap-2 text-muted-foreground hover:text-gold-l transition-colors">
+                  <MessageCircle size={14} /><span>WhatsApp {telefone}</span>
+                </a>
+              )}
+              {telefone && (
+                <a href={`tel:+${(whatsapp ?? telefone).replace(/\D/g, "")}`} className="flex items-center gap-2 text-muted-foreground hover:text-gold-l transition-colors">
+                  <Phone size={14} /><span>{telefone}</span>
+                </a>
+              )}
+              {email && (
+                <a href={`mailto:${email}`} className="flex items-center gap-2 text-muted-foreground hover:text-gold-l transition-colors">
+                  <Mail size={14} /><span>{email}</span>
+                </a>
+              )}
+              {site?.footer_links && site.footer_links.length > 0 && (
+                <div className="pt-2 flex flex-wrap gap-3 text-xs">
+                  {site.footer_links.map((l, i) => (
+                    <a key={i} href={l.href} className="text-muted-foreground hover:text-gold-l">{l.label}</a>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
           <div className="border-t border-border">
             <div className="mx-auto max-w-5xl px-5 py-5 text-xs text-muted-foreground flex flex-wrap items-center justify-between gap-3">
-              <span>© {new Date().getFullYear()} LFL Cuidado e Saúde — Todos os direitos reservados.</span>
-              <span>CRM-SC 41096</span>
+              <span>© {new Date().getFullYear()} {empresa} — Todos os direitos reservados.</span>
+              <span>{crm}</span>
             </div>
           </div>
         </footer>
