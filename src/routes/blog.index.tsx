@@ -110,6 +110,26 @@ function BlogIndex() {
         </div>
       </section>
 
+      {/* CTA Avaliação */}
+      <section className="border-b border-border bg-ink2/40">
+        <div className="mx-auto max-w-3xl px-5 py-16 text-center">
+          <div className="text-[10px] font-medium tracking-[0.2em] uppercase text-gold mb-4">Avaliação médica</div>
+          <h2 className="font-serif text-3xl sm:text-4xl text-cream mb-4 leading-tight">
+            Pronto para uma avaliação <em>personalizada</em>?
+          </h2>
+          <p className="text-muted-foreground max-w-xl mx-auto mb-7 leading-relaxed">
+            Responda ao questionário sigiloso e agende sua consulta por R$ 99. Investigação real da causa, sem pacotes abusivos.
+          </p>
+          <button
+            type="button"
+            onClick={() => setQuizOpen(true)}
+            className="inline-flex items-center gap-2 rounded-md bg-gold px-7 py-3.5 text-sm font-medium text-primary-foreground hover:opacity-90"
+          >
+            Iniciar avaliação <ArrowRight size={14} />
+          </button>
+        </div>
+      </section>
+
       <SiteFooter />
     </div>
   );
