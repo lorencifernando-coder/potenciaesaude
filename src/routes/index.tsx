@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowRight, Check, Lock, Mail, MessageCircle, Phone, ShieldCheck, Stethoscope } from "lucide-react";
 import { Quiz } from "@/components/Quiz";
+import { useSiteSettings, youtubeEmbedUrl } from "@/hooks/use-site-settings";
 
 export const Route = createFileRoute("/")({
   head: () => ({
