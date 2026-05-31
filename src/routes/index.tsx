@@ -42,6 +42,17 @@ const STEPS = [
 
 function Landing() {
   const [open, setOpen] = useState(false);
+  const { data: site } = useSiteSettings();
+  const empresa = site?.empresa_nome ?? "LFL Cuidado e Saúde";
+  const medico = site?.medico_nome ?? "Dr. Luiz Fernando Lorenci";
+  const crm = site?.crm ?? "CRM-SC 41096";
+  const especialidade = site?.especialidade ?? "Saúde Masculina";
+  const telefone = site?.telefone ?? "(49) 99931-8583";
+  const whatsapp = site?.whatsapp ?? "5549999318583";
+  const email = site?.email_contato ?? "adm@lflcuidadoesaude.com.br";
+  const videoEmbed = youtubeEmbedUrl(site?.video_youtube_url);
+  const fotoPrincipal = site?.foto_principal_url;
+  const enderecoCidade = [site?.cidade, site?.estado].filter(Boolean).join(" - ");
 
   return (
     <>
