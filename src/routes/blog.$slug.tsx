@@ -135,13 +135,13 @@ function BlogPostPage() {
             <p className="text-muted-foreground max-w-xl mx-auto mb-7 leading-relaxed">
               Conteúdo de blog informa, mas não substitui consulta. Agende uma avaliação sigilosa por R$ 99.
             </p>
-            <Link
-              to="/"
-              hash="top"
+            <button
+              type="button"
+              onClick={() => setQuizOpen(true)}
               className="inline-flex items-center gap-2 rounded-md bg-gold px-7 py-3.5 text-sm font-medium text-primary-foreground hover:opacity-90"
             >
-              Agendar avaliação <ArrowRight size={14} />
-            </Link>
+              Iniciar avaliação <ArrowRight size={14} />
+            </button>
           </div>
         </section>
 
