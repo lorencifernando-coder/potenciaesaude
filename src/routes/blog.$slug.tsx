@@ -1,7 +1,9 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useState } from "react";
 import { ArrowLeft, ArrowRight, Clock } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { Quiz } from "@/components/Quiz";
 import { BLOG_POSTS, getPostBySlug, type BlogPost } from "@/data/blog-posts";
 
 export const Route = createFileRoute("/blog/$slug")({
@@ -88,10 +90,12 @@ function PostBody({ post }: { post: BlogPost }) {
 function BlogPostPage() {
   const { post } = Route.useLoaderData();
   const related = BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 2);
+  const [quizOpen, setQuizOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <SiteHeader />
+      <Quiz open={quizOpen} onClose={() => setQuizOpen(false)} />
+      <SiteHeader onCtaClick={() => setQuizOpen(true)} />
 
       <article>
         {/* Hero */}
@@ -131,13 +135,13 @@ function BlogPostPage() {
             <p className="text-muted-foreground max-w-xl mx-auto mb-7 leading-relaxed">
               Conteúdo de blog informa, mas não substitui consulta. Agende uma avaliação sigilosa por R$ 99.
             </p>
-            <Link
-              to="/"
-              hash="top"
+            <button
+              type="button"
+              onClick={() => setQuizOpen(true)}
               className="inline-flex items-center gap-2 rounded-md bg-gold px-7 py-3.5 text-sm font-medium text-primary-foreground hover:opacity-90"
             >
-              Agendar avaliação <ArrowRight size={14} />
-            </Link>
+              Iniciar avaliação <ArrowRight size={14} />
+            </button>
           </div>
         </section>
 
