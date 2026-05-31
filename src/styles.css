@@ -1,14 +1,15 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+@import url("https://fonts.googleapis.com/css2?family=Marcellus&family=Marcellus+SC&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --radius-sm: calc(var(--radius) - 2px);
+  --radius-sm: 2px;
   --radius-md: var(--radius);
-  --radius-lg: calc(var(--radius) + 4px);
-  --radius-xl: calc(var(--radius) + 8px);
+  --radius-lg: 8px;
+  --radius-xl: 12px;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -34,26 +35,40 @@
   --color-gold-l: var(--gold-l);
   --color-gold-d: var(--gold-d);
   --color-cream: var(--cream);
+  --color-bone: var(--bone);
   --color-ink2: var(--ink2);
   --color-ink3: var(--ink3);
+  --color-wine: var(--wine);
+  --color-wine-d: var(--wine-d);
+  --color-wine-l: var(--wine-l);
 
-  --font-serif: "Cormorant Garamond", serif;
-  --font-sans: "DM Sans", sans-serif;
+  --font-display: "Marcellus", "Times New Roman", serif;
+  --font-display-sc: "Marcellus SC", "Marcellus", serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
 }
 
 :root {
-  --radius: 4px;
+  --radius: 3px;
 
-  /* Ink palette */
-  --background: oklch(0.16 0.012 265);
+  /* Ink — warm charcoal (hue 75) */
+  --background: oklch(0.145 0.006 75);
   --foreground: oklch(0.92 0.012 80);
-  --ink2: oklch(0.20 0.014 265);
-  --ink3: oklch(0.25 0.018 265);
+  --ink2: oklch(0.185 0.008 75);
+  --ink3: oklch(0.235 0.011 75);
 
-  /* Gold accents */
+  /* Brass — antique gold accent */
   --gold: oklch(0.71 0.09 78);
   --gold-l: oklch(0.80 0.08 78);
   --gold-d: oklch(0.58 0.08 70);
+
+  /* Oxblood — storytelling surfaces, used sparingly */
+  --wine: oklch(0.33 0.075 25);
+  --wine-d: oklch(0.24 0.06 25);
+  --wine-l: oklch(0.58 0.09 28);
+
+  /* Bone / cream — warm off-white for serif headlines */
+  --bone: oklch(0.94 0.018 80);
   --cream: oklch(0.94 0.018 80);
 
   --card: var(--ink2);
@@ -61,7 +76,7 @@
   --popover: var(--ink2);
   --popover-foreground: var(--foreground);
   --primary: var(--gold);
-  --primary-foreground: oklch(0.16 0.012 265);
+  --primary-foreground: oklch(0.145 0.006 75);
   --secondary: var(--ink3);
   --secondary-foreground: var(--foreground);
   --muted: var(--ink3);
@@ -73,10 +88,16 @@
   --border: oklch(1 0 0 / 8%);
   --input: oklch(1 0 0 / 10%);
   --ring: var(--gold);
+
+  --gold-line: rgba(184, 150, 90, 0.24);
+  --gold-dim: rgba(184, 150, 90, 0.10);
+
+  --shadow-cta: 0 8px 30px -6px rgba(184, 150, 90, 0.38);
+  --shadow-cta-lg: 0 12px 40px -8px rgba(184, 150, 90, 0.42);
 }
 
 .dark {
-  /* same as root — this app is dark by default */
+  /* dark by default */
 }
 
 @layer base {
@@ -93,31 +114,137 @@
     font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
   }
+  /* Display headings — Marcellus, Roman caps, positive tracking */
   h1, h2, h3 {
-    font-family: var(--font-serif);
-    font-weight: 300;
-    letter-spacing: -0.01em;
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    color: var(--bone);
   }
+  /* Emphasis = Cormorant italic, in brass */
   em {
+    font-family: var(--font-serif);
     font-style: italic;
+    font-weight: 400;
     color: var(--gold-l);
   }
 }
 
 @layer utilities {
+  .font-display { font-family: var(--font-display); }
+  .font-display-sc { font-family: var(--font-display-sc); }
+  .font-serif-voice { font-family: var(--font-serif); }
+
   .text-gradient-gold {
-    background: linear-gradient(135deg, var(--gold-d), var(--gold), var(--gold-l));
+    background: linear-gradient(135deg, var(--gold-d), var(--gold-l), var(--gold));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  .border-gold-line {
-    border-color: rgba(184, 150, 90, 0.22);
-  }
-  .bg-gold-dim {
-    background: rgba(184, 150, 90, 0.10);
-  }
+  .border-gold-line { border-color: var(--gold-line); }
+  .bg-gold-dim { background: var(--gold-dim); }
   .ring-gold-soft {
-    box-shadow: 0 0 0 1px rgba(184, 150, 90, 0.25), 0 8px 30px -8px rgba(184, 150, 90, 0.25);
+    box-shadow: 0 0 0 1px rgba(184, 150, 90, 0.25), 0 8px 30px -8px rgba(184, 150, 90, 0.22);
   }
+  .shadow-cta { box-shadow: var(--shadow-cta); }
+  .shadow-cta-lg { box-shadow: var(--shadow-cta-lg); }
+
+  /* Eyebrow / kicker — wide-tracked brass label */
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--gold);
+  }
+
+  /* Roman numeral storytelling device */
+  .numeral {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--gold-d);
+  }
+
+  /* Voice — Cormorant italic for the doctor's first-person */
+  .voice {
+    font-family: var(--font-serif);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--bone);
+  }
+
+  /* Gold hairline rule */
+  .rule-gold {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.45;
+    border: 0;
+  }
+
+  /* Top gold gradient hairline for cards */
+  .card-top-line { position: relative; overflow: hidden; }
+  .card-top-line::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.45;
+  }
+
+  /* Monogram seal — double hairline ring */
+  .seal {
+    width: 96px; height: 96px;
+    border-radius: 9999px;
+    border: 1px solid var(--gold-line);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; flex-shrink: 0;
+  }
+  .seal::before {
+    content: "";
+    position: absolute; inset: 5px;
+    border-radius: 9999px;
+    border: 1px solid rgba(184, 150, 90, 0.16);
+  }
+  .seal-mono {
+    font-family: var(--font-display);
+    letter-spacing: 0.14em;
+    color: var(--gold-l);
+    padding-left: 0.14em;
+  }
+
+  /* Pills + chips */
+  .pill {
+    position: relative;
+    display: inline-flex; align-items: center; gap: 10px;
+    border: 1px solid var(--gold-line);
+    border-radius: 9999px;
+    padding: 7px 16px;
+    color: var(--gold-l);
+  }
+  .pill::after {
+    content: "";
+    position: absolute; inset: 3px;
+    border: 1px solid rgba(184, 150, 90, 0.12);
+    border-radius: 9999px;
+    pointer-events: none;
+  }
+  .chip {
+    position: relative;
+    display: inline-flex; align-items: center; gap: 9px;
+    border: 1px solid var(--gold-line);
+    border-radius: 3px;
+    padding: 5px 12px;
+    font-family: var(--font-display-sc);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    color: var(--gold-l);
+    background: transparent;
+  }
+
+  /* Tinted section banding */
+  .bg-tint { background: color-mix(in oklch, var(--ink2) 40%, transparent); }
 }
