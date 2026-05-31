@@ -226,13 +226,13 @@ function Landing() {
             </div>
             <div className="space-y-2 text-sm">
               <a href="https://wa.me/5549999318583" className="flex items-center gap-2 text-muted-foreground hover:text-gold-l transition-colors">
-                <MessageCircle size={14} /> WhatsApp (49) 99931-8583
+                <MessageCircle size={14} /><span>WhatsApp (49) 99931-8583</span>
               </a>
               <a href="tel:+5549999318583" className="flex items-center gap-2 text-muted-foreground hover:text-gold-l transition-colors">
-                <Phone size={14} /> (49) 99931-8583
+                <Phone size={14} /><span>(49) 99931-8583</span>
               </a>
               <a href="mailto:adm@lflcuidadoesaude.com.br" className="flex items-center gap-2 text-muted-foreground hover:text-gold-l transition-colors">
-                <Mail size={14} /> adm@lflcuidadoesaude.com.br
+                <Mail size={14} /><span>adm@lflcuidadoesaude.com.br</span>
               </a>
             </div>
           </div>

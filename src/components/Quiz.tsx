@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
+import { createPaymentPreference } from "@/lib/payment.functions";
 import { Check, ChevronLeft, ChevronRight, Loader2, Sparkles, X } from "lucide-react";
 
 const STEPS = [
@@ -112,6 +114,7 @@ export function Quiz({ open, onClose }: { open: boolean; onClose: () => void }) 
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const createPref = useServerFn(createPaymentPreference);
 
   useEffect(() => {
     if (open) {
@@ -192,19 +195,26 @@ export function Quiz({ open, onClose }: { open: boolean; onClose: () => void }) 
         matinal: s.matinal || null, habitos: s.hab, comorbidades: s.com,
         pde5: s.pde5 || null, objetivo: s.obj || null,
       };
-      const { error: insErr } = await supabase.from("inscricoes").insert(payload as never);
+      const { data: insertedRows, error: insErr } = await supabase
+        .from("inscricoes")
+        .insert(payload as never)
+        .select("id")
+        .single();
       if (insErr) throw insErr;
-      // Notificação por e-mail (silenciosa — falha não bloqueia)
+      const inscricaoId = (insertedRows as { id: string }).id;
+
+      // Notificação interna ao admin (silenciosa)
       fetch("/api/public/notify-inscricao", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nome: s.nome, email: s.email, telefone: s.tel }),
       }).catch(() => {});
-      setDone(true);
-      setStep(total);
+
+      // Cria preferência Mercado Pago e redireciona para checkout
+      const pref = await createPref({ data: { inscricaoId } });
+      window.location.href = pref.init_point;
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : "Erro ao enviar. Tente novamente.");
-    } finally {
       setSubmitting(false);
     }
   }
