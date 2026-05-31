@@ -21,8 +21,8 @@ import { useSiteSettings, youtubeEmbedUrl } from "@/hooks/use-site-settings";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Dr. Luiz Fernando Lorenci — Avaliação para Disfunção Erétil | Sigilo absoluto" },
-      { name: "description", content: "Avaliação médica ética e personalizada para disfunção erétil. Investigamos a causa (hormonal, vascular ou emocional) e prescrevemos fórmulas sob medida. Sem venda casada. CRM-SC 41096." },
+      { title: "Avaliação para Disfunção Erétil — Dr. Lorenci" },
+      { name: "description", content: "Avaliação médica ética para disfunção erétil. Investigamos hormonal, vascular e emocional. Prescrição sob medida. CRM-SC 41096." },
       { name: "keywords", content: "disfunção erétil, tratamento disfunção erétil, médico urologista, andrologia, testosterona, Lages, Santa Catarina, telemedicina, saúde masculina" },
       { property: "og:title", content: "Recupere sua Potência — Avaliação médica ética" },
       { property: "og:description", content: "Investigação real da causa. Receituário personalizado, sem pacotes abusivos. Sigilo absoluto." },
