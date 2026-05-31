@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Award, GraduationCap, HeartHandshake, Stethoscope } from "lucide-react";
+import { useState } from "react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { Quiz } from "@/components/Quiz";
 import { useSiteSettings, youtubeEmbedUrl } from "@/hooks/use-site-settings";
 
 export const Route = createFileRoute("/sobre")({
@@ -24,7 +26,10 @@ const VALORES = [
 ];
 
 function SobrePage() {
+  const [quizOpen, setQuizOpen] = useState(false);
   const { data: site } = useSiteSettings();
+  const consultaValor = site?.consulta_valor ?? 99;
+  const precoFmt = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(consultaValor);
   const medico = site?.medico_nome ?? "Dr. Luiz Fernando Lorenci";
   const crm = site?.crm ?? "CRM-SC 41096";
   const especialidade = site?.especialidade ?? "Saúde Sexual Masculina";
@@ -33,7 +38,8 @@ function SobrePage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <SiteHeader />
+      <Quiz open={quizOpen} onClose={() => setQuizOpen(false)} consultaValor={consultaValor} />
+      <SiteHeader onCtaClick={() => setQuizOpen(true)} />
 
       {/* Hero */}
       <section className="border-b border-border">
@@ -120,15 +126,15 @@ function SobrePage() {
             Pronto para uma avaliação <em>de verdade</em>?
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto mb-8 leading-relaxed">
-            Agende sua consulta de avaliação por R$ 99. Atendimento sigiloso, sem pressa e sem venda casada.
+            Agende sua consulta de avaliação por {precoFmt}. Atendimento sigiloso, sem pressa e sem venda casada.
           </p>
-          <Link
-            to="/"
-            hash="top"
-            className="inline-flex items-center gap-2 rounded-md bg-gold px-7 py-3.5 text-sm font-medium text-primary-foreground transition-all hover:opacity-90"
+          <button
+            type="button"
+            onClick={() => setQuizOpen(true)}
+            className="btn-gold inline-flex items-center gap-2 rounded-md px-7 py-3.5 text-sm font-medium text-primary-foreground isolate overflow-hidden"
           >
             Agendar avaliação <ArrowRight size={14} />
-          </Link>
+          </button>
         </div>
       </section>
 
