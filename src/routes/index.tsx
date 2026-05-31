@@ -13,7 +13,7 @@ export const Route = createFileRoute("/")({
       { title: "Dr. Luiz Fernando Lorenci — Avaliação para Disfunção Erétil | Sigilo absoluto" },
       { name: "description", content: "Avaliação médica ética e personalizada para disfunção erétil. Sem venda casada. Receita para manipular onde preferir. CRM-SC 41096." },
       { name: "keywords", content: "disfunção erétil, tratamento, médico, urologia, andrologia, Lages, Santa Catarina, telemedicina" },
-      { property: "og:title", content: "Recupere sua Potência — Avaliação médica ética por R$ 99" },
+      { property: "og:title", content: "Recupere sua Potência — Avaliação médica ética" },
       { property: "og:description", content: "Investigação real da causa: hormonal, vascular ou emocional. Receituário personalizado, sem pacotes abusivos." },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "pt_BR" },
@@ -38,7 +38,7 @@ const COMMITMENTS = [
 ];
 
 const STEPS = [
-  { n: "01", t: "Avaliação por R$ 99", b: "Consulta completa, ética e sem pressa para entender seu histórico, estilo de vida e queixas." },
+  { n: "01", t: "Avaliação médica", b: "Consulta completa, ética e sem pressa para entender seu histórico, estilo de vida e queixas." },
   { n: "02", t: "Investigação", b: "Exames laboratoriais direcionados para encontrar a verdadeira causa da disfunção." },
   { n: "03", t: "Tratamento sob medida", b: "Prescrição de fórmulas manipuladas específicas para você. Receita livre — farmácia à sua escolha." },
 ];
@@ -51,11 +51,13 @@ function Landing() {
   const especialidade = site?.especialidade ?? "Saúde Masculina";
   const videoEmbed = youtubeEmbedUrl(site?.video_youtube_url);
   const fotoPrincipal = site?.foto_principal_url;
+  const consultaValor = site?.consulta_valor ?? 99;
+  const precoFmt = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(consultaValor);
 
 
   return (
     <>
-      <Quiz open={open} onClose={() => setOpen(false)} />
+      <Quiz open={open} onClose={() => setOpen(false)} consultaValor={consultaValor} />
 
       <div className="min-h-screen bg-background text-foreground">
         {/* Nav */}
@@ -87,7 +89,7 @@ function Landing() {
                 onClick={() => setOpen(true)}
                 className="group inline-flex items-center gap-2 rounded-md bg-gold px-7 py-3.5 text-sm font-medium text-primary-foreground transition-all hover:opacity-90 hover:translate-y-[-1px] shadow-[0_8px_30px_-6px_rgba(184,150,90,0.4)]"
               >
-                Agendar avaliação — R$ 99 <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
+                Agendar avaliação — {precoFmt} <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
               </button>
               <a href="#como" className="text-sm text-muted-foreground hover:text-foreground transition-colors px-4 py-3">
                 Como funciona
@@ -210,7 +212,7 @@ function Landing() {
               Sua avaliação começa em <em>5 minutos</em>.
             </h2>
             <p className="text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed">
-              Preencha o questionário confidencial. O Dr. Lorenci entrará em contato pelo WhatsApp em até 24h para agendar sua consulta de avaliação por R$ 99,00.
+              Preencha o questionário confidencial. O Dr. Lorenci entrará em contato pelo WhatsApp em até 24h para agendar sua consulta de avaliação por {precoFmt}.
             </p>
             <button
               onClick={() => setOpen(true)}

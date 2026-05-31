@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Quiz } from "@/components/Quiz";
 import { BLOG_POSTS } from "@/data/blog-posts";
+import { useSiteSettings } from "@/hooks/use-site-settings";
 
 export const Route = createFileRoute("/blog/")({
   head: () => ({
@@ -25,10 +26,13 @@ function formatDate(iso: string) {
 function BlogIndex() {
   const [featured, ...rest] = BLOG_POSTS;
   const [quizOpen, setQuizOpen] = useState(false);
+  const { data: site } = useSiteSettings();
+  const consultaValor = site?.consulta_valor ?? 99;
+  const precoFmt = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(consultaValor);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Quiz open={quizOpen} onClose={() => setQuizOpen(false)} />
+      <Quiz open={quizOpen} onClose={() => setQuizOpen(false)} consultaValor={consultaValor} />
       <SiteHeader onCtaClick={() => setQuizOpen(true)} />
 
       {/* Header */}
@@ -116,7 +120,7 @@ function BlogIndex() {
             Pronto para uma avaliação <em>personalizada</em>?
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto mb-7 leading-relaxed">
-            Responda ao questionário sigiloso e agende sua consulta por R$ 99. Investigação real da causa, sem pacotes abusivos.
+            Responda ao questionário sigiloso e agende sua consulta por {precoFmt}. Investigação real da causa, sem pacotes abusivos.
           </p>
           <button
             type="button"

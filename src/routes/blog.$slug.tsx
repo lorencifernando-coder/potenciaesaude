@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Quiz } from "@/components/Quiz";
 import { BLOG_POSTS, getPostBySlug, type BlogPost } from "@/data/blog-posts";
+import { useSiteSettings } from "@/hooks/use-site-settings";
 
 export const Route = createFileRoute("/blog/$slug")({
   loader: ({ params }) => {
@@ -91,10 +92,13 @@ function BlogPostPage() {
   const { post } = Route.useLoaderData();
   const related = BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 2);
   const [quizOpen, setQuizOpen] = useState(false);
+  const { data: site } = useSiteSettings();
+  const consultaValor = site?.consulta_valor ?? 99;
+  const precoFmt = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(consultaValor);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Quiz open={quizOpen} onClose={() => setQuizOpen(false)} />
+      <Quiz open={quizOpen} onClose={() => setQuizOpen(false)} consultaValor={consultaValor} />
       <SiteHeader onCtaClick={() => setQuizOpen(true)} />
 
       <article>
@@ -134,7 +138,7 @@ function BlogPostPage() {
               Quer uma avaliação <em>personalizada</em>?
             </h2>
             <p className="text-muted-foreground max-w-xl mx-auto mb-7 leading-relaxed">
-              Conteúdo de blog informa, mas não substitui consulta. Agende uma avaliação sigilosa por R$ 99.
+              Conteúdo de blog informa, mas não substitui consulta. Agende uma avaliação sigilosa por {precoFmt}.
             </p>
             <button
               type="button"

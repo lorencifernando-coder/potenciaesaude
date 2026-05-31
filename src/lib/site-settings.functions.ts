@@ -26,9 +26,12 @@ async function requireAdmin(userId: string) {
 
 export const getPublicSiteSettings = createServerFn({ method: "GET" })
   .handler(async () => {
-    const { data } = await supabaseAdmin
-      .from("site_settings").select(PUBLIC_FIELDS).eq("id", 1).maybeSingle();
-    return { settings: data ?? null };
+    const [{ data: site }, { data: app }] = await Promise.all([
+      supabaseAdmin.from("site_settings").select(PUBLIC_FIELDS).eq("id", 1).maybeSingle(),
+      supabaseAdmin.from("app_settings").select("consulta_valor").eq("id", 1).maybeSingle(),
+    ]);
+    const base = (site as Record<string, unknown> | null) ?? {};
+    return { settings: { ...base, consulta_valor: Number(app?.consulta_valor ?? 99) } };
   });
 
 export const adminGetSiteSettings = createServerFn({ method: "GET" })

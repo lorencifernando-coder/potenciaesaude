@@ -108,7 +108,7 @@ function mCEP(v: string) {
   return v.replace(/\D/g, "").slice(0, 8).replace(/(\d{5})(\d)/, "$1-$2");
 }
 
-export function Quiz({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function Quiz({ open, onClose, consultaValor = 99 }: { open: boolean; onClose: () => void; consultaValor?: number }) {
   const [step, setStep] = useState(1);
   const [s, setS] = useState<State>(initial);
   const [submitting, setSubmitting] = useState(false);
@@ -194,6 +194,7 @@ export function Quiz({ open, onClose }: { open: boolean; onClose: () => void }) 
         queixas: s.queixas, clinicas: s.clin,
         matinal: s.matinal || null, habitos: s.hab, comorbidades: s.com,
         pde5: s.pde5 || null, objetivo: s.obj || null,
+        payment_amount: consultaValor,
       };
       const { data: insertedRows, error: insErr } = await supabase
         .from("inscricoes")

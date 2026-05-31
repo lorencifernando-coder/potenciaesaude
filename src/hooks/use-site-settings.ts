@@ -31,6 +31,7 @@ export type PublicSiteSettings = {
   redes_sociais: Record<string, string>;
   mp_public_key: string | null;
   gcal_calendar_link_publico: string | null;
+  consulta_valor: number;
 };
 
 export function useSiteSettings() {

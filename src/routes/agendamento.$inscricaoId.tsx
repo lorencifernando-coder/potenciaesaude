@@ -5,6 +5,7 @@ import { getAvailableSlots, confirmarAgendamento } from "@/lib/agendamento.funct
 import { createPaymentPreference } from "@/lib/payment.functions";
 import { Loader2, Calendar, Lock, Sunrise, Sun, Moon, ArrowRight } from "lucide-react";
 import { useState } from "react";
+import { useSiteSettings } from "@/hooks/use-site-settings";
 
 export const Route = createFileRoute("/agendamento/$inscricaoId")({
   head: () => ({ meta: [{ title: "Escolha o horário da sua avaliação" }, { name: "robots", content: "noindex" }] }),
@@ -18,6 +19,9 @@ function AgendaPage() {
   const confirmFn = useServerFn(confirmarAgendamento);
   const payFn = useServerFn(createPaymentPreference);
   const [selected, setSelected] = useState<string | null>(null);
+  const { data: site } = useSiteSettings();
+  const consultaValor = site?.consulta_valor ?? 99;
+  const precoFmt = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(consultaValor);
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["slots", inscricaoId],
@@ -53,7 +57,7 @@ function AgendaPage() {
                 <div className="font-medium text-amber-400 mb-1">Pagamento ainda não confirmado</div>
                 <p className="text-sm text-muted-foreground mb-4">{data.blocked}</p>
                 <button onClick={payNow} className="inline-flex items-center gap-2 rounded-md bg-gold px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90">
-                  Pagar agora (R$ 99) <ArrowRight size={14} />
+                  Pagar agora ({precoFmt}) <ArrowRight size={14} />
                 </button>
                 <p className="text-xs text-muted-foreground mt-3">Já pagou? Aguarde alguns segundos — a página atualiza sozinha.</p>
               </div>
