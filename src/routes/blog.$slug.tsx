@@ -90,10 +90,12 @@ function PostBody({ post }: { post: BlogPost }) {
 function BlogPostPage() {
   const { post } = Route.useLoaderData();
   const related = BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 2);
+  const [quizOpen, setQuizOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <SiteHeader />
+      <Quiz open={quizOpen} onClose={() => setQuizOpen(false)} />
+      <SiteHeader onCtaClick={() => setQuizOpen(true)} />
 
       <article>
         {/* Hero */}
