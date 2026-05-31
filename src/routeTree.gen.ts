@@ -9,14 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AgendamentoSucessoRouteImport } from './routes/agendamento.sucesso'
 import { Route as AgendamentoInscricaoIdRouteImport } from './routes/agendamento.$inscricaoId'
 import { Route as ApiPublicNotifyInscricaoRouteImport } from './routes/api/public/notify-inscricao'
 import { Route as ApiPublicMpWebhookRouteImport } from './routes/api/public/mp-webhook'
 
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -30,6 +38,16 @@ const AdminRoute = AdminRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AgendamentoSucessoRoute = AgendamentoSucessoRouteImport.update({
@@ -58,8 +76,11 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/login': typeof LoginRoute
+  '/sobre': typeof SobreRoute
   '/agendamento/$inscricaoId': typeof AgendamentoInscricaoIdRoute
   '/agendamento/sucesso': typeof AgendamentoSucessoRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/blog/': typeof BlogIndexRoute
   '/api/public/mp-webhook': typeof ApiPublicMpWebhookRoute
   '/api/public/notify-inscricao': typeof ApiPublicNotifyInscricaoRoute
 }
@@ -67,8 +88,11 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/login': typeof LoginRoute
+  '/sobre': typeof SobreRoute
   '/agendamento/$inscricaoId': typeof AgendamentoInscricaoIdRoute
   '/agendamento/sucesso': typeof AgendamentoSucessoRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/blog': typeof BlogIndexRoute
   '/api/public/mp-webhook': typeof ApiPublicMpWebhookRoute
   '/api/public/notify-inscricao': typeof ApiPublicNotifyInscricaoRoute
 }
@@ -77,8 +101,11 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/login': typeof LoginRoute
+  '/sobre': typeof SobreRoute
   '/agendamento/$inscricaoId': typeof AgendamentoInscricaoIdRoute
   '/agendamento/sucesso': typeof AgendamentoSucessoRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/blog/': typeof BlogIndexRoute
   '/api/public/mp-webhook': typeof ApiPublicMpWebhookRoute
   '/api/public/notify-inscricao': typeof ApiPublicNotifyInscricaoRoute
 }
@@ -88,8 +115,11 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/login'
+    | '/sobre'
     | '/agendamento/$inscricaoId'
     | '/agendamento/sucesso'
+    | '/blog/$slug'
+    | '/blog/'
     | '/api/public/mp-webhook'
     | '/api/public/notify-inscricao'
   fileRoutesByTo: FileRoutesByTo
@@ -97,8 +127,11 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/login'
+    | '/sobre'
     | '/agendamento/$inscricaoId'
     | '/agendamento/sucesso'
+    | '/blog/$slug'
+    | '/blog'
     | '/api/public/mp-webhook'
     | '/api/public/notify-inscricao'
   id:
@@ -106,8 +139,11 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/login'
+    | '/sobre'
     | '/agendamento/$inscricaoId'
     | '/agendamento/sucesso'
+    | '/blog/$slug'
+    | '/blog/'
     | '/api/public/mp-webhook'
     | '/api/public/notify-inscricao'
   fileRoutesById: FileRoutesById
@@ -116,14 +152,24 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
   LoginRoute: typeof LoginRoute
+  SobreRoute: typeof SobreRoute
   AgendamentoInscricaoIdRoute: typeof AgendamentoInscricaoIdRoute
   AgendamentoSucessoRoute: typeof AgendamentoSucessoRoute
+  BlogSlugRoute: typeof BlogSlugRoute
+  BlogIndexRoute: typeof BlogIndexRoute
   ApiPublicMpWebhookRoute: typeof ApiPublicMpWebhookRoute
   ApiPublicNotifyInscricaoRoute: typeof ApiPublicNotifyInscricaoRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -143,6 +189,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/agendamento/sucesso': {
@@ -180,8 +240,11 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
   LoginRoute: LoginRoute,
+  SobreRoute: SobreRoute,
   AgendamentoInscricaoIdRoute: AgendamentoInscricaoIdRoute,
   AgendamentoSucessoRoute: AgendamentoSucessoRoute,
+  BlogSlugRoute: BlogSlugRoute,
+  BlogIndexRoute: BlogIndexRoute,
   ApiPublicMpWebhookRoute: ApiPublicMpWebhookRoute,
   ApiPublicNotifyInscricaoRoute: ApiPublicNotifyInscricaoRoute,
 }

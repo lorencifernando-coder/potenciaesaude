@@ -1,8 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, Check, Lock, Mail, MessageCircle, Phone, ShieldCheck, Stethoscope } from "lucide-react";
+import { ArrowRight, Check, Lock, ShieldCheck, Stethoscope } from "lucide-react";
 import { Quiz } from "@/components/Quiz";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
 import { useSiteSettings, youtubeEmbedUrl } from "@/hooks/use-site-settings";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -43,16 +46,12 @@ const STEPS = [
 function Landing() {
   const [open, setOpen] = useState(false);
   const { data: site } = useSiteSettings();
-  const empresa = site?.empresa_nome ?? "LFL Cuidado e Saúde";
   const medico = site?.medico_nome ?? "Dr. Luiz Fernando Lorenci";
   const crm = site?.crm ?? "CRM-SC 41096";
   const especialidade = site?.especialidade ?? "Saúde Masculina";
-  const telefone = site?.telefone ?? "(49) 99931-8583";
-  const whatsapp = site?.whatsapp ?? "5549999318583";
-  const email = site?.email_contato ?? "adm@lflcuidadoesaude.com.br";
   const videoEmbed = youtubeEmbedUrl(site?.video_youtube_url);
   const fotoPrincipal = site?.foto_principal_url;
-  const enderecoCidade = [site?.cidade, site?.estado].filter(Boolean).join(" - ");
+
 
   return (
     <>
@@ -60,23 +59,8 @@ function Landing() {
 
       <div className="min-h-screen bg-background text-foreground">
         {/* Nav */}
-        <header className="sticky top-0 z-30 border-b border-border bg-background/80 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-6xl items-center justify-between px-5 h-16">
-            <a href="#top" className="font-serif text-lg tracking-wide text-gold-l flex items-center gap-2">
-              {site?.logo_url ? (
-                <img src={site.logo_url} alt={empresa} className="h-8 w-auto" />
-              ) : (
-                <>LFL <span className="text-muted-foreground text-[0.78em]">{especialidade}</span></>
-              )}
-            </a>
-            <button
-              onClick={() => setOpen(true)}
-              className="hidden sm:inline-flex items-center gap-2 rounded-md bg-gold px-5 py-2.5 text-sm font-medium text-primary-foreground transition-all hover:opacity-90"
-            >
-              {site?.header_cta_texto || "Agendar avaliação"} <ArrowRight size={14} />
-            </button>
-          </div>
-        </header>
+        <SiteHeader onCtaClick={() => setOpen(true)} />
+
 
         {/* Hero */}
         <section id="top" className="relative overflow-hidden">
@@ -241,48 +225,8 @@ function Landing() {
         </section>
 
         {/* Footer */}
-        <footer className="border-t border-border bg-background">
-          <div className="mx-auto max-w-5xl px-5 py-12 grid sm:grid-cols-2 gap-8">
-            <div>
-              <div className="font-serif text-xl text-gold-l mb-2">{medico}</div>
-              <div className="text-sm text-muted-foreground">{crm} • {especialidade}</div>
-              <div className="text-xs text-muted-foreground mt-3 max-w-sm">
-                {site?.footer_texto || site?.footer_aviso_legal || "Atendimento sigiloso e humanizado."}
-              </div>
-              {enderecoCidade && <div className="text-xs text-muted-foreground mt-2">{enderecoCidade}</div>}
-            </div>
-            <div className="space-y-2 text-sm">
-              {whatsapp && (
-                <a href={`https://wa.me/${whatsapp}`} className="flex items-center gap-2 text-muted-foreground hover:text-gold-l transition-colors">
-                  <MessageCircle size={14} /><span>WhatsApp {telefone}</span>
-                </a>
-              )}
-              {telefone && (
-                <a href={`tel:+${(whatsapp ?? telefone).replace(/\D/g, "")}`} className="flex items-center gap-2 text-muted-foreground hover:text-gold-l transition-colors">
-                  <Phone size={14} /><span>{telefone}</span>
-                </a>
-              )}
-              {email && (
-                <a href={`mailto:${email}`} className="flex items-center gap-2 text-muted-foreground hover:text-gold-l transition-colors">
-                  <Mail size={14} /><span>{email}</span>
-                </a>
-              )}
-              {site?.footer_links && site.footer_links.length > 0 && (
-                <div className="pt-2 flex flex-wrap gap-3 text-xs">
-                  {site.footer_links.map((l, i) => (
-                    <a key={i} href={l.href} className="text-muted-foreground hover:text-gold-l">{l.label}</a>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="border-t border-border">
-            <div className="mx-auto max-w-5xl px-5 py-5 text-xs text-muted-foreground flex flex-wrap items-center justify-between gap-3">
-              <span>© {new Date().getFullYear()} {empresa} — Todos os direitos reservados.</span>
-              <span>{crm}</span>
-            </div>
-          </div>
-        </footer>
+        <SiteFooter />
+
       </div>
     </>
   );
