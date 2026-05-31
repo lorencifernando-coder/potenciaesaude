@@ -34,7 +34,7 @@ function BlogIndex() {
       {/* Header */}
       <section className="border-b border-border">
         <div className="mx-auto max-w-5xl px-5 pt-20 pb-12">
-          <div className="text-[10px] font-medium tracking-[0.2em] uppercase text-gold mb-4">Blog</div>
+          <div className="eyebrow mb-4">Blog</div>
           <h1 className="font-serif text-4xl sm:text-5xl text-cream leading-tight mb-4 max-w-3xl">
             Informação médica clara sobre o que <em>realmente importa</em>.
           </h1>
@@ -45,10 +45,10 @@ function BlogIndex() {
       </section>
 
       {/* Featured */}
-      <section className="border-b border-border bg-ink2/40">
-        <div className="mx-auto max-w-5xl px-5 py-16">
+      <section className="border-b border-border bg-tint">
+        <div className="mx-auto max-w-5xl px-5 py-20">
           <Link to="/blog/$slug" params={{ slug: featured.slug }} className="group block">
-            <article className="grid md:grid-cols-2 gap-8 items-center">
+            <article className="grid md:grid-cols-2 gap-10 items-center">
               <div className="aspect-[4/3] overflow-hidden rounded-lg border border-border bg-ink2">
                 <img
                   src={featured.cover}
@@ -57,9 +57,7 @@ function BlogIndex() {
                 />
               </div>
               <div>
-                <div className="text-[10px] font-medium tracking-[0.2em] uppercase text-gold mb-3">
-                  Destaque • {featured.category}
-                </div>
+                <div className="eyebrow mb-3">Destaque · {featured.category}</div>
                 <h2 className="font-serif text-3xl sm:text-4xl text-cream leading-tight mb-4 group-hover:text-gold-l transition-colors">
                   {featured.title}
                 </h2>
@@ -79,12 +77,12 @@ function BlogIndex() {
 
       {/* Feed */}
       <section className="border-b border-border">
-        <div className="mx-auto max-w-5xl px-5 py-16">
-          <div className="text-[10px] font-medium tracking-[0.2em] uppercase text-gold mb-8">Todos os artigos</div>
+        <div className="mx-auto max-w-5xl px-5 py-20">
+          <div className="eyebrow mb-8">Todos os artigos</div>
           <div className="grid md:grid-cols-2 gap-6">
             {rest.map((post) => (
               <Link key={post.slug} to="/blog/$slug" params={{ slug: post.slug }} className="group">
-                <article className="rounded-lg border border-border bg-background overflow-hidden hover:border-gold-line transition-colors h-full flex flex-col">
+                <article className="card card-top-line bg-background overflow-hidden h-full flex flex-col rounded-md">
                   <div className="aspect-[16/9] overflow-hidden bg-ink2">
                     <img
                       src={post.cover}
@@ -93,7 +91,7 @@ function BlogIndex() {
                     />
                   </div>
                   <div className="p-6 flex flex-col flex-1">
-                    <div className="text-[10px] font-medium tracking-[0.2em] uppercase text-gold mb-3">{post.category}</div>
+                    <div className="eyebrow mb-3">{post.category}</div>
                     <h3 className="font-serif text-xl text-cream leading-tight mb-3 group-hover:text-gold-l transition-colors">
                       {post.title}
                     </h3>
@@ -111,9 +109,9 @@ function BlogIndex() {
       </section>
 
       {/* CTA Avaliação */}
-      <section className="border-b border-border bg-ink2/40">
-        <div className="mx-auto max-w-3xl px-5 py-16 text-center">
-          <div className="text-[10px] font-medium tracking-[0.2em] uppercase text-gold mb-4">Avaliação médica</div>
+      <section className="border-b border-border bg-tint">
+        <div className="mx-auto max-w-3xl px-5 py-20 text-center">
+          <div className="eyebrow mb-4">Avaliação médica</div>
           <h2 className="font-serif text-3xl sm:text-4xl text-cream mb-4 leading-tight">
             Pronto para uma avaliação <em>personalizada</em>?
           </h2>
@@ -123,7 +121,7 @@ function BlogIndex() {
           <button
             type="button"
             onClick={() => setQuizOpen(true)}
-            className="inline-flex items-center gap-2 rounded-md bg-gold px-7 py-3.5 text-sm font-medium text-primary-foreground hover:opacity-90"
+            className="inline-flex items-center gap-2 rounded-md bg-gold px-7 py-3.5 text-sm font-medium text-primary-foreground transition-all hover:opacity-90 hover:translate-y-[-1px] shadow-cta"
           >
             Iniciar avaliação <ArrowRight size={14} />
           </button>
