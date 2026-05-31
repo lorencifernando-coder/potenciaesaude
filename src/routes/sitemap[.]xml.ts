@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
-import { POSTS } from "@/data/blog-posts";
+import { BLOG_POSTS } from "@/data/blog-posts";
 
 const BASE_URL = "https://potenciaesaude.lovable.app";
 
@@ -23,17 +23,13 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/blog", lastmod: today, changefreq: "weekly", priority: "0.8" },
         ];
 
-        try {
-          for (const post of POSTS as Array<{ slug: string; date?: string; publishedAt?: string }>) {
-            entries.push({
-              path: `/blog/${post.slug}`,
-              lastmod: (post.date ?? post.publishedAt ?? today).slice(0, 10),
-              changefreq: "monthly",
-              priority: "0.7",
-            });
-          }
-        } catch {
-          // ignore if POSTS shape differs
+        for (const post of BLOG_POSTS) {
+          entries.push({
+            path: `/blog/${post.slug}`,
+            lastmod: post.date.slice(0, 10),
+            changefreq: "monthly",
+            priority: "0.7",
+          });
         }
 
         const urls = entries.map((e) =>
