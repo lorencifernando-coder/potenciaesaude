@@ -125,7 +125,7 @@ function BlogIndex() {
           <button
             type="button"
             onClick={() => setQuizOpen(true)}
-            className="inline-flex items-center gap-2 rounded-md bg-gold px-7 py-3.5 text-sm font-medium text-primary-foreground transition-all hover:opacity-90 hover:translate-y-[-1px] shadow-cta"
+            className="btn-gold inline-flex items-center gap-2 rounded-md px-7 py-3.5 text-sm font-medium text-primary-foreground isolate overflow-hidden"
           >
             Iniciar avaliação <ArrowRight size={14} />
           </button>
