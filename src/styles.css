@@ -80,7 +80,7 @@
   --secondary: var(--ink3);
   --secondary-foreground: var(--foreground);
   --muted: var(--ink3);
-  --muted-foreground: oklch(0.66 0.018 80);
+  --muted-foreground: oklch(0.78 0.02 80);
   --accent: var(--ink3);
   --accent-foreground: var(--gold-l);
   --destructive: oklch(0.62 0.20 27);
