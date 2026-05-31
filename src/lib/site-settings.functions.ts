@@ -30,7 +30,8 @@ export const getPublicSiteSettings = createServerFn({ method: "GET" })
       supabaseAdmin.from("site_settings").select(PUBLIC_FIELDS).eq("id", 1).maybeSingle(),
       supabaseAdmin.from("app_settings").select("consulta_valor").eq("id", 1).maybeSingle(),
     ]);
-    return { settings: { ...(site ?? {}), consulta_valor: Number(app?.consulta_valor ?? 99) } };
+    const base = (site as Record<string, unknown> | null) ?? {};
+    return { settings: { ...base, consulta_valor: Number(app?.consulta_valor ?? 99) } };
   });
 
 export const adminGetSiteSettings = createServerFn({ method: "GET" })
