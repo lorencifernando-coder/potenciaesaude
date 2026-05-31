@@ -1,83 +1,70 @@
-## Visão geral
+## Painel central de configurações do site
 
-Estender o fluxo atual (questionário → inscrição) com:
-1. **Pagamento Pix/cartão** via Mercado Pago Checkout Pro com webhook de confirmação.
-2. **5 slots de horário** gerados a partir de janelas configuráveis no painel admin, descontando o que já está ocupado na Google Calendar do Dr. Lorenci.
-3. **Painel admin** (rota protegida `/admin`) para: login, configurar janelas semanais (turnos manhã/tarde/noite por dia da semana), conectar Google Calendar, ver inscrições e status de pagamento.
-4. **Agendamento confirmado** cria evento na Google Calendar com link Google Meet automático e dispara email de confirmação para paciente e médico via Resend.
+Adicionar uma área de configurações abrangente em `/admin` que controla **todas as páginas** (atuais e futuras) — marca, contato, header/rodapé, vídeo informativo, integrações (Mercado Pago + Google Calendar) e janelas livres de horário.
 
-## Fluxo do paciente
+### 1. Banco — nova tabela `site_settings` (singleton, id=1)
 
-```text
-Questionário (já existe)
-   ↓ salva em `inscricoes`
-Checkout Mercado Pago (Pix/cartão)
-   ↓ webhook /api/public/mp-webhook marca payment_status='paid'
-Página /agendamento/:inscricaoId
-   → mostra 5 próximos slots livres
-   → paciente escolhe
-   ↓ server fn cria evento Google Calendar + Meet
-Página de sucesso + email confirmação
-```
+**Identidade / Marca**
+- `empresa_nome`, `empresa_slogan`, `empresa_descricao`
+- `logo_url`, `favicon_url`, `foto_principal_url`
+- `medico_nome`, `crm`, `especialidade`
 
-## Banco de dados (nova migration)
+**Contato / Endereço**
+- `telefone`, `whatsapp`, `email_contato`
+- `cep`, `logradouro`, `numero`, `complemento`, `bairro`, `cidade`, `estado`
 
-- `inscricoes`: novas colunas `payment_id`, `payment_status` (pending/paid/cancelled), `payment_amount`, `agendamento_id`.
-- `agendamentos`: `id`, `inscricao_id` (FK), `data_hora` (timestamptz), `google_event_id`, `google_meet_link`, `status` (scheduled/cancelled), `created_at`.
-- `disponibilidade_config`: `id`, `dia_semana` (0-6), `hora_inicio`, `hora_fim`, `ativo` — janelas que o admin define.
-- `app_settings` (singleton): `id`, `google_refresh_token` (criptografado server-side), `google_calendar_id`, `slot_duracao_min` (default 60), `antecedencia_min_horas` (default 24).
-- `user_roles` + função `has_role` para gating do `/admin` (admin único: Dr. Lorenci).
+**Mídia**
+- `video_youtube_url`
 
-RLS: pacientes só inserem `inscricoes` (já feito). `agendamentos` só admin lê; insert via server fn com service role. `disponibilidade_config` leitura pública (para gerar slots no front), write só admin.
+**Cabeçalho / Rodapé**
+- `header_cta_texto`, `header_links` (JSON `[{label, href}]`)
+- `footer_texto`, `footer_aviso_legal`, `footer_links` (JSON)
+- `redes_sociais` (JSON `{instagram, facebook, linkedin, youtube}`)
 
-## Painel admin
+**Mercado Pago**
+- `mp_public_key` (chave pública — pode ficar no banco, vai ao cliente)
+- `mp_status` calculado: o token privado segue como secret `MERCADOPAGO_ACCESS_TOKEN`. O painel exibe "configurado / não configurado" e um botão **"Atualizar token Mercado Pago"** que chama `secrets--update_secret`.
+- `mp_webhook_url` (somente leitura — mostra a URL do webhook para o usuário colar no painel MP)
 
-Rota `/admin` protegida por `_authenticated` + checagem `has_role('admin')`.
+**Google Calendar**
+- `gcal_calendar_id` (texto, ex.: `primary` ou ID do calendário)
+- `gcal_calendar_link_publico` (link de visualização que o admin cola)
+- `gcal_ics_url` (opcional — URL ICS privado para sincronizar busy times)
+- `gcal_oauth_status` calculado: status do refresh token armazenado em secret `GOOGLE_OAUTH_REFRESH_TOKEN` (Fase 2). Painel mostra **"Conectar Google Calendar"** (placeholder até credenciais OAuth) e botões para atualizar `GOOGLE_OAUTH_CLIENT_ID` / `GOOGLE_OAUTH_CLIENT_SECRET` via `secrets--add_secret`.
 
-- **Login**: email/senha + Google (Dr. Lorenci se cadastra uma vez).
-- **Aba Agenda Google**: botão "Conectar Google Calendar" → OAuth com escopos `calendar.events`. Token de refresh salvo em `app_settings`. Permite escolher qual `calendar_id` usar.
-- **Aba Disponibilidade**: tabela editável dia × turno (Manhã 8-12, Tarde 13-18, Noite 19-22). Toggle por slot.
-- **Aba Inscrições**: lista todas as `inscricoes` com filtros, status de pagamento, agendamento, link Meet, dados clínicos do questionário (modal).
+**Disponibilidade — substituir turnos fixos por janelas livres**
+A tabela `disponibilidade_config` já existe. Reescrever a UI para permitir criar/editar/remover **janelas livres** por dia (inputs de hora_inicio/hora_fim), sem mais checkboxes Manhã/Tarde/Noite.
 
-## Integração Mercado Pago
+### 2. Storage — bucket público `site-assets`
+Upload de logo, favicon e foto principal direto do painel (sem precisar colar URL). Policies: leitura pública; escrita só admin.
 
-- Server fn `createPaymentPreference` (chamada após submit do questionário): cria Preference via API MP REST, retorna `init_point`. Frontend redireciona.
-- Server route público `/api/public/mp-webhook`: recebe IPN, valida com MP API, atualiza `inscricoes.payment_status`. Após `paid`, redireciona paciente para `/agendamento/:id`.
-- Secret necessário: `MERCADOPAGO_ACCESS_TOKEN` (vou pedir após aprovação do plano).
+### 3. UI do painel `/admin` — abas reorganizadas
+- **Inscrições** (mantém)
+- **Disponibilidade** (reescrita — janelas livres editáveis)
+- **Marca & Mídia** (logo, favicon, foto, vídeo YouTube, nome, slogan, descrição, médico/CRM)
+- **Contato & Endereço**
+- **Cabeçalho & Rodapé** (links, CTA, texto, redes sociais)
+- **Pagamento (Mercado Pago)** (status token, atualizar secret, chave pública, valor da consulta, webhook URL para copiar)
+- **Google Calendar** (calendar ID, link público, status OAuth, botões para configurar credenciais — UI pronta; integração real depende das credenciais)
+- **Geral** (duração slot, antecedência mínima — já existe em `app_settings`)
 
-## Integração Google Calendar
+### 4. Frontend — propagar settings para o site inteiro
+- Novo server fn público `getPublicSiteSettings()` retornando **apenas** campos seguros (exclui tokens). Cacheado via TanStack Query (`staleTime` generoso, invalidado quando admin salva).
+- Hook `useSiteSettings()`.
+- Componentes reutilizáveis `<SiteHeader />` e `<SiteFooter />` consumindo settings — toda página nova herda automaticamente.
+- `index.tsx` usa: `foto_principal_url`, `empresa_nome`, `medico_nome`, `crm`, `video_youtube_url`, contato, endereço, footer.
+- `__root.tsx` injeta `favicon_url` e meta tags (title/description) a partir das settings.
+- Quiz/agendamento/sucesso exibem nome, contato, WhatsApp dinâmicos.
 
-Lovable tem conector Google Calendar mas é por gateway compartilhado da conta do desenvolvedor — não serve aqui porque cada Dr. Lorenci precisa conectar a *sua* agenda. Vou implementar **OAuth 2.0 próprio**:
+### 5. Seed inicial
+Migration popula `site_settings` com os dados atuais hardcoded (Dr. Luiz Fernando Lorenci, CRM-SC 41096, (49) 99931-8583, adm@lflcuidadoesaude.com.br, endereço em branco para o admin completar).
 
-- Credenciais OAuth do Google Cloud (Client ID + Secret) ficam como secrets `GOOGLE_OAUTH_CLIENT_ID` / `GOOGLE_OAUTH_CLIENT_SECRET`.
-- Rota `/api/public/google-oauth-callback` recebe code, troca por refresh token, salva em `app_settings`.
-- Server fn `getAvailableSlots(inscricaoId)`: lê `disponibilidade_config`, gera próximas datas dentro da janela (próximos 14 dias), chama `freebusy.query` do Google Calendar para remover horários ocupados, devolve os 5 primeiros livres.
-- Server fn `confirmarAgendamento(inscricaoId, slot)`: cria evento com `conferenceData.createRequest` (gera Meet automático), persiste em `agendamentos`, dispara email.
+### Notas técnicas
+- RLS: `site_settings` — SELECT público apenas via server fn (não policy aberta, para esconder campos sensíveis); UPDATE só admin.
+- Token Mercado Pago **nunca** vai para o banco — fica no secret, atualizado via `update_secret`.
+- YouTube: aceita URL completa ou ID; helper extrai ID e renderiza `<iframe>` embed.
+- Upload: `supabase.storage.from('site-assets').upload(...)` com auth admin; URL pública salva em `site_settings`.
+- Google Calendar Fase 2: campos já existem no painel; integração OAuth real (geração de Meet, freebusy) entra quando credenciais forem fornecidas. Até lá, admin pode colar `gcal_calendar_link_publico` para exibir agenda manualmente.
 
-## Email
-
-Já existe rota `/api/public/notify-inscricao` com Resend. Adicionar:
-- Email de confirmação ao paciente com data/hora, link Meet, instruções.
-- Email para Dr. Lorenci com resumo + Meet.
-- Adicionar lembrete (cron pg_cron 24h antes) — opcional, fica para v2.
-
-## Detalhes técnicos
-
-- **Server fns novas** (`src/lib/agendamento.functions.ts`, `src/lib/admin.functions.ts`, `src/lib/payment.functions.ts`).
-- **Server routes novas** (`src/routes/api/public/mp-webhook.ts`, `src/routes/api/public/google-oauth-callback.ts`).
-- **Rotas UI novas**: `/admin`, `/admin/google`, `/admin/disponibilidade`, `/admin/inscricoes`, `/agendamento/$inscricaoId`, `/agendamento/sucesso`, `/login`.
-- Adaptar `Quiz.tsx` para, após salvar inscrição, chamar `createPaymentPreference` e redirecionar para Mercado Pago.
-
-## Secrets que vou pedir após aprovação
-
-1. `MERCADOPAGO_ACCESS_TOKEN` — obtido em mercadopago.com.br/developers (app do Dr.).
-2. `GOOGLE_OAUTH_CLIENT_ID` e `GOOGLE_OAUTH_CLIENT_SECRET` — criados no Google Cloud Console com redirect URI `https://<projeto>.lovable.app/api/public/google-oauth-callback`.
-3. `RESEND_API_KEY` — se ainda não foi configurada da etapa anterior.
-
-## Entrega faseada
-
-**Fase 1 (esta entrega):** estrutura de DB, login admin com role, painel admin com janelas + lista de inscrições, integração Mercado Pago (checkout + webhook), gating do agendamento por pagamento.
-
-**Fase 2 (depois das credenciais Google):** OAuth Google Calendar, geração de slots reais, criação de evento com Meet, email de confirmação enriquecido.
-
-Faseamento permite testar fluxo de pagamento antes mesmo de o Google estar conectado — slots iniciais vêm só das janelas (sem freebusy).
+### Entrega
+Tudo em uma fase. Após aprovação: migração + bucket + servidor + UI + refactor das páginas para consumir settings.

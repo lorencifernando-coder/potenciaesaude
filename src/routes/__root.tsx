@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
@@ -7,10 +7,12 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { getPublicSiteSettings } from "../lib/site-settings.functions";
 
 function NotFoundComponent() {
   return (
@@ -113,9 +115,26 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const fn = useServerFn(getPublicSiteSettings);
+  // Pré-carrega settings para toda a árvore (cache compartilhado via useSiteSettings)
+  useQuery({ queryKey: ["site-settings"], queryFn: async () => (await fn()).settings, staleTime: 5 * 60 * 1000 });
   return (
     <QueryClientProvider client={queryClient}>
+      <FaviconInjector />
       <Outlet />
     </QueryClientProvider>
   );
+}
+
+function FaviconInjector() {
+  const fn = useServerFn(getPublicSiteSettings);
+  const { data } = useQuery({ queryKey: ["site-settings"], queryFn: async () => (await fn()).settings, staleTime: 5 * 60 * 1000 });
+  useEffect(() => {
+    const url = (data as any)?.favicon_url;
+    if (!url || typeof document === "undefined") return;
+    let link = document.querySelector<HTMLLinkElement>("link[rel~='icon']");
+    if (!link) { link = document.createElement("link"); link.rel = "icon"; document.head.appendChild(link); }
+    link.href = url;
+  }, [data]);
+  return null;
 }

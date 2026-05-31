@@ -208,6 +208,111 @@ export type Database = {
         }
         Relationships: []
       }
+      site_settings: {
+        Row: {
+          bairro: string | null
+          cep: string | null
+          cidade: string | null
+          complemento: string | null
+          crm: string
+          email_contato: string | null
+          empresa_descricao: string | null
+          empresa_nome: string
+          empresa_slogan: string | null
+          especialidade: string | null
+          estado: string | null
+          favicon_url: string | null
+          footer_aviso_legal: string | null
+          footer_links: Json
+          footer_texto: string | null
+          foto_principal_url: string | null
+          gcal_calendar_id: string | null
+          gcal_calendar_link_publico: string | null
+          gcal_ics_url: string | null
+          header_cta_texto: string | null
+          header_links: Json
+          id: number
+          logo_url: string | null
+          logradouro: string | null
+          medico_nome: string
+          mp_public_key: string | null
+          numero: string | null
+          redes_sociais: Json
+          telefone: string | null
+          updated_at: string
+          video_youtube_url: string | null
+          whatsapp: string | null
+        }
+        Insert: {
+          bairro?: string | null
+          cep?: string | null
+          cidade?: string | null
+          complemento?: string | null
+          crm?: string
+          email_contato?: string | null
+          empresa_descricao?: string | null
+          empresa_nome?: string
+          empresa_slogan?: string | null
+          especialidade?: string | null
+          estado?: string | null
+          favicon_url?: string | null
+          footer_aviso_legal?: string | null
+          footer_links?: Json
+          footer_texto?: string | null
+          foto_principal_url?: string | null
+          gcal_calendar_id?: string | null
+          gcal_calendar_link_publico?: string | null
+          gcal_ics_url?: string | null
+          header_cta_texto?: string | null
+          header_links?: Json
+          id?: number
+          logo_url?: string | null
+          logradouro?: string | null
+          medico_nome?: string
+          mp_public_key?: string | null
+          numero?: string | null
+          redes_sociais?: Json
+          telefone?: string | null
+          updated_at?: string
+          video_youtube_url?: string | null
+          whatsapp?: string | null
+        }
+        Update: {
+          bairro?: string | null
+          cep?: string | null
+          cidade?: string | null
+          complemento?: string | null
+          crm?: string
+          email_contato?: string | null
+          empresa_descricao?: string | null
+          empresa_nome?: string
+          empresa_slogan?: string | null
+          especialidade?: string | null
+          estado?: string | null
+          favicon_url?: string | null
+          footer_aviso_legal?: string | null
+          footer_links?: Json
+          footer_texto?: string | null
+          foto_principal_url?: string | null
+          gcal_calendar_id?: string | null
+          gcal_calendar_link_publico?: string | null
+          gcal_ics_url?: string | null
+          header_cta_texto?: string | null
+          header_links?: Json
+          id?: number
+          logo_url?: string | null
+          logradouro?: string | null
+          medico_nome?: string
+          mp_public_key?: string | null
+          numero?: string | null
+          redes_sociais?: Json
+          telefone?: string | null
+          updated_at?: string
+          video_youtube_url?: string | null
+          whatsapp?: string | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
