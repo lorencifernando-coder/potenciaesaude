@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { ArrowRight, Clock } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { Quiz } from "@/components/Quiz";
 import { BLOG_POSTS } from "@/data/blog-posts";
 
 export const Route = createFileRoute("/blog/")({
