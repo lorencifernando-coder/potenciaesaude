@@ -19,8 +19,11 @@ export const Route = createFileRoute("/blog/")({
   component: BlogIndex,
 });
 
+const MESES_PT = ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
 function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("pt-BR", { day: "2-digit", month: "long", year: "numeric" });
+  // Parse manual em UTC para evitar mismatch SSR/cliente por timezone
+  const [y, m, d] = iso.slice(0, 10).split("-").map(Number);
+  return `${String(d).padStart(2, "0")} de ${MESES_PT[m - 1]} de ${y}`;
 }
 
 function BlogIndex() {
