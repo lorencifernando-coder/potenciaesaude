@@ -57,43 +57,46 @@
   --ink2: oklch(0.185 0.008 75);
   --ink3: oklch(0.235 0.011 75);
 
-  /* Brass — antique gold accent */
-  --gold: oklch(0.71 0.09 78);
-  --gold-l: oklch(0.80 0.08 78);
-  --gold-d: oklch(0.58 0.08 70);
+  /* Brass — antique gold accent, now richer & more vivid */
+  --gold: oklch(0.78 0.145 82);
+  --gold-l: oklch(0.88 0.13 88);
+  --gold-d: oklch(0.62 0.14 72);
 
   /* Oxblood — storytelling surfaces, used sparingly */
-  --wine: oklch(0.33 0.075 25);
-  --wine-d: oklch(0.24 0.06 25);
-  --wine-l: oklch(0.58 0.09 28);
+  --wine: oklch(0.36 0.11 25);
+  --wine-d: oklch(0.26 0.08 25);
+  --wine-l: oklch(0.62 0.14 28);
 
   /* Bone / cream — warm off-white for serif headlines */
-  --bone: oklch(0.94 0.018 80);
-  --cream: oklch(0.94 0.018 80);
+  --bone: oklch(0.95 0.022 82);
+  --cream: oklch(0.95 0.022 82);
 
   --card: var(--ink2);
   --card-foreground: var(--foreground);
   --popover: var(--ink2);
   --popover-foreground: var(--foreground);
   --primary: var(--gold);
-  --primary-foreground: oklch(0.145 0.006 75);
+  --primary-foreground: oklch(0.13 0.012 75);
   --secondary: var(--ink3);
   --secondary-foreground: var(--foreground);
   --muted: var(--ink3);
-  --muted-foreground: oklch(0.62 0.015 80);
+  --muted-foreground: oklch(0.66 0.018 80);
   --accent: var(--ink3);
   --accent-foreground: var(--gold-l);
   --destructive: oklch(0.62 0.20 27);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(1 0 0 / 8%);
+  --border: oklch(1 0 0 / 9%);
   --input: oklch(1 0 0 / 10%);
   --ring: var(--gold);
 
-  --gold-line: rgba(184, 150, 90, 0.24);
-  --gold-dim: rgba(184, 150, 90, 0.10);
+  --gold-line: rgba(214, 173, 92, 0.35);
+  --gold-dim: rgba(214, 173, 92, 0.14);
 
-  --shadow-cta: 0 8px 30px -6px rgba(184, 150, 90, 0.38);
-  --shadow-cta-lg: 0 12px 40px -8px rgba(184, 150, 90, 0.42);
+  --gradient-gold: linear-gradient(135deg, oklch(0.68 0.15 72) 0%, oklch(0.84 0.16 86) 45%, oklch(0.74 0.15 78) 100%);
+  --gradient-gold-hover: linear-gradient(135deg, oklch(0.72 0.16 72) 0%, oklch(0.90 0.17 88) 50%, oklch(0.78 0.16 78) 100%);
+
+  --shadow-cta: 0 10px 32px -8px rgba(232, 188, 96, 0.55), 0 2px 6px -2px rgba(232, 188, 96, 0.35), inset 0 1px 0 rgba(255, 235, 180, 0.45);
+  --shadow-cta-lg: 0 18px 50px -10px rgba(232, 188, 96, 0.6), 0 4px 12px -3px rgba(232, 188, 96, 0.4), inset 0 1px 0 rgba(255, 235, 180, 0.5);
 }
 
 .dark {
@@ -247,4 +250,33 @@
 
   /* Tinted section banding */
   .bg-tint { background: color-mix(in oklch, var(--ink2) 40%, transparent); }
+
+  /* Vivid CTA — gradient brass with sheen + lift */
+  .btn-gold {
+    position: relative;
+    background: var(--gradient-gold);
+    color: var(--primary-foreground);
+    box-shadow: var(--shadow-cta);
+    border: 1px solid rgba(255, 220, 150, 0.35);
+    transition: transform 220ms cubic-bezier(.2,.7,.2,1), box-shadow 220ms ease, background 220ms ease;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .btn-gold::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(110deg, transparent 30%, rgba(255, 245, 210, 0.55) 50%, transparent 70%);
+    transform: translateX(-120%);
+    transition: transform 750ms cubic-bezier(.2,.7,.2,1);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .btn-gold:hover {
+    background: var(--gradient-gold-hover);
+    box-shadow: var(--shadow-cta-lg);
+    transform: translateY(-2px);
+  }
+  .btn-gold:hover::before { transform: translateX(120%); }
+  .btn-gold:active { transform: translateY(0); }
+  .btn-gold > * { position: relative; z-index: 2; }
 }

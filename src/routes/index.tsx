@@ -87,9 +87,9 @@ function Landing() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6">
               <button
                 onClick={() => setOpen(true)}
-                className="group inline-flex items-center gap-2 rounded-md bg-gold px-7 py-3.5 text-sm font-medium text-primary-foreground transition-all hover:opacity-90 hover:translate-y-[-1px] shadow-[0_8px_30px_-6px_rgba(184,150,90,0.4)]"
+                className="btn-gold group inline-flex items-center gap-2 rounded-md px-7 py-3.5 text-sm font-medium"
               >
-                Agendar avaliação — {precoFmt} <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
+                <span>Agendar avaliação — {precoFmt}</span> <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
               </button>
               <a href="#como" className="text-sm text-muted-foreground hover:text-foreground transition-colors px-4 py-3">
                 Como funciona
@@ -216,9 +216,9 @@ function Landing() {
             </p>
             <button
               onClick={() => setOpen(true)}
-              className="inline-flex items-center gap-2 rounded-md bg-gold px-8 py-4 text-base font-medium text-primary-foreground transition-all hover:opacity-90 hover:translate-y-[-1px] shadow-[0_12px_40px_-8px_rgba(184,150,90,0.45)]"
+              className="btn-gold inline-flex items-center gap-2 rounded-md px-8 py-4 text-base font-medium"
             >
-              Quero agendar minha avaliação <ArrowRight size={16} />
+              <span>Quero agendar minha avaliação</span> <ArrowRight size={16} />
             </button>
             <p className="text-xs text-muted-foreground mt-5 flex items-center justify-center gap-2">
               <Lock size={12} /> Sigiloso • Dados protegidos pela LGPD
