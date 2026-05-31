@@ -63,6 +63,7 @@ const INCLUSO = [
   { icon: FlaskConical, t: "Pedido de exames direcionados", b: "Hormonal, vascular e metabólico — só o que realmente importa." },
   { icon: FileText, t: "Receita personalizada", b: "Fórmula manipulada para o seu caso. Você escolhe a farmácia." },
   { icon: MessageCircle, t: "Acompanhamento por WhatsApp", b: "Suporte para dúvidas pontuais após a consulta." },
+  { icon: Clock, t: "Consulta de retorno inclusa", b: "Prontuário organizado e progressão real entre os tratamentos. Cada caso acompanhado." },
 ];
 
 const STEPS = [
