@@ -142,12 +142,16 @@ function Landing() {
           <div className="mx-auto max-w-3xl px-5 py-20">
             <div className="text-[10px] font-medium tracking-[0.2em] uppercase text-gold mb-3">Seu médico</div>
             <div className="flex items-start gap-5 mb-8">
-              <div className="h-16 w-16 shrink-0 rounded-full bg-gold-dim border border-gold-line flex items-center justify-center">
-                <Stethoscope className="h-7 w-7 text-gold" />
-              </div>
+              {fotoPrincipal ? (
+                <img src={fotoPrincipal} alt={medico} className="h-16 w-16 shrink-0 rounded-full object-cover border border-gold-line" />
+              ) : (
+                <div className="h-16 w-16 shrink-0 rounded-full bg-gold-dim border border-gold-line flex items-center justify-center">
+                  <Stethoscope className="h-7 w-7 text-gold" />
+                </div>
+              )}
               <div>
-                <h2 className="font-serif text-3xl text-cream leading-tight">Dr. Luiz Fernando Lorenci</h2>
-                <div className="text-sm text-muted-foreground mt-1">CRM-SC 41096 • Saúde Masculina</div>
+                <h2 className="font-serif text-3xl text-cream leading-tight">{medico}</h2>
+                <div className="text-sm text-muted-foreground mt-1">{crm} • {especialidade}</div>
               </div>
             </div>
 
@@ -160,6 +164,12 @@ function Landing() {
             <p className="text-muted-foreground leading-relaxed">
               Decidi seguir um caminho diferente da medicina padronizada e fria. Meu foco é oferecer um espaço seguro, sem julgamentos, onde você seja compreendido por completo. A disfunção erétil tem tratamento, e ele começa com uma relação de confiança entre médico e paciente.
             </p>
+
+            {videoEmbed && (
+              <div className="mt-10 aspect-video rounded-lg overflow-hidden border border-border bg-ink2">
+                <iframe src={videoEmbed} className="w-full h-full" allowFullScreen title="Vídeo informativo" />
+              </div>
+            )}
           </div>
         </section>
 
