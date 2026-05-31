@@ -9,12 +9,37 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AgendamentoSucessoRouteImport } from './routes/agendamento.sucesso'
+import { Route as AgendamentoInscricaoIdRouteImport } from './routes/agendamento.$inscricaoId'
 import { Route as ApiPublicNotifyInscricaoRouteImport } from './routes/api/public/notify-inscricao'
+import { Route as ApiPublicMpWebhookRouteImport } from './routes/api/public/mp-webhook'
 
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgendamentoSucessoRoute = AgendamentoSucessoRouteImport.update({
+  id: '/agendamento/sucesso',
+  path: '/agendamento/sucesso',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgendamentoInscricaoIdRoute = AgendamentoInscricaoIdRouteImport.update({
+  id: '/agendamento/$inscricaoId',
+  path: '/agendamento/$inscricaoId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicNotifyInscricaoRoute =
@@ -23,40 +48,115 @@ const ApiPublicNotifyInscricaoRoute =
     path: '/api/public/notify-inscricao',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicMpWebhookRoute = ApiPublicMpWebhookRouteImport.update({
+  id: '/api/public/mp-webhook',
+  path: '/api/public/mp-webhook',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/login': typeof LoginRoute
+  '/agendamento/$inscricaoId': typeof AgendamentoInscricaoIdRoute
+  '/agendamento/sucesso': typeof AgendamentoSucessoRoute
+  '/api/public/mp-webhook': typeof ApiPublicMpWebhookRoute
   '/api/public/notify-inscricao': typeof ApiPublicNotifyInscricaoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/login': typeof LoginRoute
+  '/agendamento/$inscricaoId': typeof AgendamentoInscricaoIdRoute
+  '/agendamento/sucesso': typeof AgendamentoSucessoRoute
+  '/api/public/mp-webhook': typeof ApiPublicMpWebhookRoute
   '/api/public/notify-inscricao': typeof ApiPublicNotifyInscricaoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/login': typeof LoginRoute
+  '/agendamento/$inscricaoId': typeof AgendamentoInscricaoIdRoute
+  '/agendamento/sucesso': typeof AgendamentoSucessoRoute
+  '/api/public/mp-webhook': typeof ApiPublicMpWebhookRoute
   '/api/public/notify-inscricao': typeof ApiPublicNotifyInscricaoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/public/notify-inscricao'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/login'
+    | '/agendamento/$inscricaoId'
+    | '/agendamento/sucesso'
+    | '/api/public/mp-webhook'
+    | '/api/public/notify-inscricao'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/public/notify-inscricao'
-  id: '__root__' | '/' | '/api/public/notify-inscricao'
+  to:
+    | '/'
+    | '/admin'
+    | '/login'
+    | '/agendamento/$inscricaoId'
+    | '/agendamento/sucesso'
+    | '/api/public/mp-webhook'
+    | '/api/public/notify-inscricao'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/login'
+    | '/agendamento/$inscricaoId'
+    | '/agendamento/sucesso'
+    | '/api/public/mp-webhook'
+    | '/api/public/notify-inscricao'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
+  LoginRoute: typeof LoginRoute
+  AgendamentoInscricaoIdRoute: typeof AgendamentoInscricaoIdRoute
+  AgendamentoSucessoRoute: typeof AgendamentoSucessoRoute
+  ApiPublicMpWebhookRoute: typeof ApiPublicMpWebhookRoute
   ApiPublicNotifyInscricaoRoute: typeof ApiPublicNotifyInscricaoRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agendamento/sucesso': {
+      id: '/agendamento/sucesso'
+      path: '/agendamento/sucesso'
+      fullPath: '/agendamento/sucesso'
+      preLoaderRoute: typeof AgendamentoSucessoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agendamento/$inscricaoId': {
+      id: '/agendamento/$inscricaoId'
+      path: '/agendamento/$inscricaoId'
+      fullPath: '/agendamento/$inscricaoId'
+      preLoaderRoute: typeof AgendamentoInscricaoIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/notify-inscricao': {
@@ -66,13 +166,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicNotifyInscricaoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/mp-webhook': {
+      id: '/api/public/mp-webhook'
+      path: '/api/public/mp-webhook'
+      fullPath: '/api/public/mp-webhook'
+      preLoaderRoute: typeof ApiPublicMpWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
+  LoginRoute: LoginRoute,
+  AgendamentoInscricaoIdRoute: AgendamentoInscricaoIdRoute,
+  AgendamentoSucessoRoute: AgendamentoSucessoRoute,
+  ApiPublicMpWebhookRoute: ApiPublicMpWebhookRoute,
   ApiPublicNotifyInscricaoRoute: ApiPublicNotifyInscricaoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
