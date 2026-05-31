@@ -250,4 +250,33 @@
 
   /* Tinted section banding */
   .bg-tint { background: color-mix(in oklch, var(--ink2) 40%, transparent); }
+
+  /* Vivid CTA — gradient brass with sheen + lift */
+  .btn-gold {
+    position: relative;
+    background: var(--gradient-gold);
+    color: var(--primary-foreground);
+    box-shadow: var(--shadow-cta);
+    border: 1px solid rgba(255, 220, 150, 0.35);
+    transition: transform 220ms cubic-bezier(.2,.7,.2,1), box-shadow 220ms ease, background 220ms ease;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .btn-gold::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(110deg, transparent 30%, rgba(255, 245, 210, 0.55) 50%, transparent 70%);
+    transform: translateX(-120%);
+    transition: transform 750ms cubic-bezier(.2,.7,.2,1);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .btn-gold:hover {
+    background: var(--gradient-gold-hover);
+    box-shadow: var(--shadow-cta-lg);
+    transform: translateY(-2px);
+  }
+  .btn-gold:hover::before { transform: translateX(120%); }
+  .btn-gold:active { transform: translateY(0); }
+  .btn-gold > * { position: relative; z-index: 2; }
 }
