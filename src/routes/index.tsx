@@ -43,9 +43,10 @@ const TESTIMONIALS = [
 ];
 
 const COMMITMENTS = [
-  { title: "Diagnóstico investigativo", body: "Analisamos exames de verdade. Hormonal? Vascular? Emocional? Descobrimos juntos a raiz — não tratamos só o sintoma." },
-  { title: "Liberdade de escolha", body: "Você recebe a receita e manipula na farmácia da sua confiança. Sem comissões. Sem custos ocultos. Sem assinatura mensal." },
-  { title: "Foco na reabilitação", body: "O objetivo não é deixar você dependente de remédios — é restaurar sua função sexual de forma sustentável." },
+  { title: "Diagnóstico investigativo", body: "Analisamos exames de verdade. Hormonal? Vascular? Emocional? Descobrimos juntos a raiz — sem promessas vagas ou medicamentos milagrosos." },
+  { title: "Liberdade de escolha", body: "Você recebe a receita e manipula na farmácia da sua confiança. Sem comissões. Sem custos ocultos. Sem assinatura mensal. Sem vendas casadas." },
+  { title: "Foco na reabilitação", body: "O objetivo não é deixar você dependente de remédios — é restaurar sua função sexual e sua saúde como um todo, de forma sustentável e atualizada." },
+  { title: "Acompanhamento contínuo", body: "Direito a consulta de retorno, prontuário organizado e progressão real entre os tratamentos. Cada caso desafiador é levado a sério." },
 ];
 
 const SINTOMAS = [
