@@ -75,12 +75,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Dr. Luiz Fernando Lorenci - Saúde e Performance Masculina" },
       { property: "og:title", content: "Dr. Luiz Fernando Lorenci - Saúde e Performance Masculina" },
       { name: "twitter:title", content: "Dr. Luiz Fernando Lorenci - Saúde e Performance Masculina" },
-      { name: "description", content: "A saúde sexual masculina virou balcão de vendas. Aqui é diferente.
-Muitos homens acabam em clínicas que exploram a fragilidade do momento." },
-      { property: "og:description", content: "A saúde sexual masculina virou balcão de vendas. Aqui é diferente.
-Muitos homens acabam em clínicas que exploram a fragilidade do momento." },
-      { name: "twitter:description", content: "A saúde sexual masculina virou balcão de vendas. Aqui é diferente.
-Muitos homens acabam em clínicas que exploram a fragilidade do momento." },
+      { name: "description", content: "A saúde sexual masculina virou balcão de vendas. Aqui é diferente. Muitos homens acabam em clínicas que exploram a fragilidade do momento." },
+      { property: "og:description", content: "A saúde sexual masculina virou balcão de vendas. Aqui é diferente. Muitos homens acabam em clínicas que exploram a fragilidade do momento." },
+      { name: "twitter:description", content: "A saúde sexual masculina virou balcão de vendas. Aqui é diferente. Muitos homens acabam em clínicas que exploram a fragilidade do momento." },
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/eoo7PsyrvcSJLcCVd7Ue12Ez2Iz2/social-images/social-1780200901730-Captura_de_tela_2026-05-31_011448.webp" },
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/eoo7PsyrvcSJLcCVd7Ue12Ez2Iz2/social-images/social-1780200901730-Captura_de_tela_2026-05-31_011448.webp" },
       { name: "twitter:card", content: "summary_large_image" },
