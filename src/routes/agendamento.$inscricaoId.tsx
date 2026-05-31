@@ -57,7 +57,7 @@ function AgendaPage() {
                 <div className="font-medium text-amber-400 mb-1">Pagamento ainda não confirmado</div>
                 <p className="text-sm text-muted-foreground mb-4">{data.blocked}</p>
                 <button onClick={payNow} className="inline-flex items-center gap-2 rounded-md bg-gold px-5 py-2.5 text-sm font-medium text-primary-foreground hover:opacity-90">
-                  Pagar agora (R$ 99) <ArrowRight size={14} />
+                  Pagar agora ({precoFmt}) <ArrowRight size={14} />
                 </button>
                 <p className="text-xs text-muted-foreground mt-3">Já pagou? Aguarde alguns segundos — a página atualiza sozinha.</p>
               </div>
