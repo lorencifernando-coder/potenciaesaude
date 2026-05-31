@@ -1,0 +1,14 @@
+# LFL Cuidado e Saúde — Dr. Luiz Fernando Lorenci
+
+> Site de saúde sexual masculina com atendimento médico ético, investigativo e sigiloso. Avaliações para disfunção erétil, ejaculação precoce e síndrome metabólica. CRM-SC 41096.
+
+LFL Cuidado e Saúde é o consultório do Dr. Luiz Fernando Lorenci, médico especializado em saúde sexual masculina. A abordagem é investigativa: busca-se a causa real (hormonal, vascular ou emocional) antes de prescrever qualquer tratamento. Não há venda casada, pacotes fechados ou comissões com farmácias. O paciente recebe a receita e manipula onde preferir. Atendimento presencial em Lages/SC e por telemedicina para todo o Brasil.
+
+## Pages
+
+- [Home](/): Apresentação da avaliação médica para disfunção erétil. Depoimentos, diferenciais, FAQ e agendamento.
+- [Sobre](/sobre): Trajetória e filosofia de atendimento do Dr. Luiz Fernando Lorenci. Princípios, formação e vídeo de apresentação.
+- [Blog](/blog): Conteúdo médico sobre saúde sexual masculina. Artigos sobre disfunção erétil, ejaculação precoce, obesidade e síndrome metabólica.
+- [Disfunção Erétil: causas reais, mitos e o que realmente funciona](/blog/disfuncao-eretil): Artigo sobre causas vasculares, hormonais, metabólicas, neurológicas e psicogênicas da DE, além de abordagens de tratamento.
+- [Ejaculação Precoce: o que é, o que não é e como tratar de fato](/blog/ejaculacao-precoce): Artigo explicando critérios diagnósticos, causas neurobiológicas e opções terapêuticas.
+- [Obesidade e Síndrome Metabólica: o elo invisível com a saúde sexual](/blog/obesidade-sindrome-metabolica): Artigo sobre a relação entre síndrome metabólica, endotélio vascular, eixo testosterona-obesidade e tratamento integrado.
