@@ -43,9 +43,10 @@ const TESTIMONIALS = [
 ];
 
 const COMMITMENTS = [
-  { title: "Diagnóstico investigativo", body: "Analisamos exames de verdade. Hormonal? Vascular? Emocional? Descobrimos juntos a raiz — não tratamos só o sintoma." },
-  { title: "Liberdade de escolha", body: "Você recebe a receita e manipula na farmácia da sua confiança. Sem comissões. Sem custos ocultos. Sem assinatura mensal." },
-  { title: "Foco na reabilitação", body: "O objetivo não é deixar você dependente de remédios — é restaurar sua função sexual de forma sustentável." },
+  { title: "Diagnóstico investigativo", body: "Analisamos exames de verdade. Hormonal? Vascular? Emocional? Descobrimos juntos a raiz — sem promessas vagas ou medicamentos milagrosos." },
+  { title: "Liberdade de escolha", body: "Você recebe a receita e manipula na farmácia da sua confiança. Sem comissões. Sem custos ocultos. Sem assinatura mensal. Sem vendas casadas." },
+  { title: "Foco na reabilitação", body: "O objetivo não é deixar você dependente de remédios — é restaurar sua função sexual e sua saúde como um todo, de forma sustentável e atualizada." },
+  { title: "Acompanhamento contínuo", body: "Direito a consulta de retorno, prontuário organizado e progressão real entre os tratamentos. Cada caso desafiador é levado a sério." },
 ];
 
 const SINTOMAS = [
@@ -62,6 +63,7 @@ const INCLUSO = [
   { icon: FlaskConical, t: "Pedido de exames direcionados", b: "Hormonal, vascular e metabólico — só o que realmente importa." },
   { icon: FileText, t: "Receita personalizada", b: "Fórmula manipulada para o seu caso. Você escolhe a farmácia." },
   { icon: MessageCircle, t: "Acompanhamento por WhatsApp", b: "Suporte para dúvidas pontuais após a consulta." },
+  { icon: Clock, t: "Consulta de retorno inclusa", b: "Prontuário organizado e progressão real entre os tratamentos. Cada caso acompanhado." },
 ];
 
 const STEPS = [
@@ -87,6 +89,10 @@ const FAQ = [
   {
     q: "Meus dados ficam seguros?",
     a: "Sim. Toda informação é tratada com sigilo médico absoluto e proteção LGPD. Seu nome jamais aparece em listas ou comunicações comerciais.",
+  },
+  {
+    q: "A consulta de retorno realmente está inclusa?",
+    a: "Sim. Direito a consulta de retorno com prontuário organizado e acompanhamento da progressão entre os tratamentos. Cada caso desafiador é levado a sério, do início ao fim.",
   },
   {
     q: "Quanto tempo leva para ver resultado?",
@@ -129,7 +135,7 @@ function Landing() {
             </h1>
 
             <p className="text-base sm:text-lg text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed">
-              Chega de clínicas que cobram fortunas e empurram pacotes fechados. Diagnóstico real, exames direcionados e receita personalizada para manipular onde preferir.
+              Chega de clínicas que exploram a fragilidade do momento com pacotes fechados. Aqui investigamos a causa real — hormonal, vascular ou emocional — e prescrevemos com ciência atualizada. A ereção e o desejo são os termômetros da sua saúde masculina.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6">
@@ -192,7 +198,7 @@ function Landing() {
               Muitos homens acabam em clínicas que exploram a fragilidade do momento — consultas rápidas, pacotes fechados e medicação supercarafurada empurrada no balcão. O meu compromisso é o oposto disso.
             </p>
 
-            <div className="grid sm:grid-cols-3 gap-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {COMMITMENTS.map((c, i) => (
                 <div key={i} className="relative rounded-md border border-border bg-background p-6 overflow-hidden group hover:border-gold-line transition-colors">
                   <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent opacity-40" />
@@ -230,7 +236,7 @@ function Landing() {
             </blockquote>
 
             <p className="text-muted-foreground leading-relaxed">
-              Decidi seguir um caminho diferente da medicina padronizada e fria. Meu foco é oferecer um espaço seguro, sem julgamentos, onde você seja compreendido por completo. A disfunção erétil tem tratamento, e ele começa com uma relação de confiança entre médico e paciente.
+              Decidi seguir um caminho diferente da medicina padronizada e fria. Aqui fazemos ciência — de forma atualizada, atenta e buscando restaurar a sua saúde como um todo. Sem promessas vagas, medicamentos milagrosos ou vendas casadas. A ereção e o desejo são os termômetros da saúde masculina: quando estão em ordem, o resto do corpo também tende a estar.
             </p>
 
             {videoEmbed && (
