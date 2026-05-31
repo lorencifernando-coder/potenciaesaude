@@ -42,16 +42,16 @@ export function SiteHeader({ ctaHref = "/#top", onCtaClick }: { ctaHref?: string
         {onCtaClick ? (
           <button
             onClick={onCtaClick}
-            className="hidden sm:inline-flex items-center gap-2 rounded-md bg-gold px-5 py-2.5 text-sm font-medium text-primary-foreground transition-all hover:opacity-90"
+            className="btn-gold hidden sm:inline-flex items-center gap-2 rounded-md px-5 py-2.5 text-sm font-medium"
           >
-            {cta} <ArrowRight size={14} />
+            <span>{cta}</span> <ArrowRight size={14} />
           </button>
         ) : (
           <a
             href={ctaHref}
-            className="hidden sm:inline-flex items-center gap-2 rounded-md bg-gold px-5 py-2.5 text-sm font-medium text-primary-foreground transition-all hover:opacity-90"
+            className="btn-gold hidden sm:inline-flex items-center gap-2 rounded-md px-5 py-2.5 text-sm font-medium"
           >
-            {cta} <ArrowRight size={14} />
+            <span>{cta}</span> <ArrowRight size={14} />
           </a>
         )}
       </div>
