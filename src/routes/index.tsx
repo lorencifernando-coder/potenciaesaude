@@ -135,7 +135,7 @@ function Landing() {
             </h1>
 
             <p className="text-base sm:text-lg text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed">
-              Chega de clínicas que cobram fortunas e empurram pacotes fechados. Diagnóstico real, exames direcionados e receita personalizada para manipular onde preferir.
+              Chega de clínicas que exploram a fragilidade do momento com pacotes fechados. Aqui investigamos a causa real — hormonal, vascular ou emocional — e prescrevemos com ciência atualizada. A ereção e o desejo são os termômetros da sua saúde masculina.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6">
