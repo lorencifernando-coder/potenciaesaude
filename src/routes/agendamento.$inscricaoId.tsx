@@ -19,6 +19,9 @@ function AgendaPage() {
   const confirmFn = useServerFn(confirmarAgendamento);
   const payFn = useServerFn(createPaymentPreference);
   const [selected, setSelected] = useState<string | null>(null);
+  const { data: site } = useSiteSettings();
+  const consultaValor = site?.consulta_valor ?? 99;
+  const precoFmt = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(consultaValor);
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["slots", inscricaoId],
