@@ -115,9 +115,6 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const fn = useServerFn(getPublicSiteSettings);
-  // Pré-carrega settings para toda a árvore (cache compartilhado via useSiteSettings)
-  useQuery({ queryKey: ["site-settings"], queryFn: async () => (await fn()).settings, staleTime: 5 * 60 * 1000 });
   return (
     <QueryClientProvider client={queryClient}>
       <FaviconInjector />
