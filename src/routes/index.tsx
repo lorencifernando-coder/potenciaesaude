@@ -194,7 +194,7 @@ function Landing() {
               Muitos homens acabam em clínicas que exploram a fragilidade do momento — consultas rápidas, pacotes fechados e medicação supercarafurada empurrada no balcão. O meu compromisso é o oposto disso.
             </p>
 
-            <div className="grid sm:grid-cols-3 gap-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {COMMITMENTS.map((c, i) => (
                 <div key={i} className="relative rounded-md border border-border bg-background p-6 overflow-hidden group hover:border-gold-line transition-colors">
                   <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent opacity-40" />
