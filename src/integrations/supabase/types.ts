@@ -14,7 +14,90 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      inscricoes: {
+        Row: {
+          altura: number | null
+          bairro: string | null
+          cep: string | null
+          cidade: string | null
+          clinicas: Json | null
+          comorbidades: string[] | null
+          complemento: string | null
+          cpf: string | null
+          created_at: string
+          data_nascimento: string | null
+          email: string
+          estado: string | null
+          habitos: string[] | null
+          id: string
+          logradouro: string | null
+          matinal: string | null
+          nome: string
+          notificado: boolean
+          numero: string | null
+          objetivo: string | null
+          pde5: string | null
+          peso: number | null
+          queixas: string[] | null
+          sexo: string | null
+          telefone: string
+        }
+        Insert: {
+          altura?: number | null
+          bairro?: string | null
+          cep?: string | null
+          cidade?: string | null
+          clinicas?: Json | null
+          comorbidades?: string[] | null
+          complemento?: string | null
+          cpf?: string | null
+          created_at?: string
+          data_nascimento?: string | null
+          email: string
+          estado?: string | null
+          habitos?: string[] | null
+          id?: string
+          logradouro?: string | null
+          matinal?: string | null
+          nome: string
+          notificado?: boolean
+          numero?: string | null
+          objetivo?: string | null
+          pde5?: string | null
+          peso?: number | null
+          queixas?: string[] | null
+          sexo?: string | null
+          telefone: string
+        }
+        Update: {
+          altura?: number | null
+          bairro?: string | null
+          cep?: string | null
+          cidade?: string | null
+          clinicas?: Json | null
+          comorbidades?: string[] | null
+          complemento?: string | null
+          cpf?: string | null
+          created_at?: string
+          data_nascimento?: string | null
+          email?: string
+          estado?: string | null
+          habitos?: string[] | null
+          id?: string
+          logradouro?: string | null
+          matinal?: string | null
+          nome?: string
+          notificado?: boolean
+          numero?: string | null
+          objetivo?: string | null
+          pde5?: string | null
+          peso?: number | null
+          queixas?: string[] | null
+          sexo?: string | null
+          telefone?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
